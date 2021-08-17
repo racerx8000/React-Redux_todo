@@ -1,22 +1,34 @@
 import React from "react";
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import ColumnHeader from "./ColumnHeader";
 import Task from "./Task";
 import TaskInput from "./TaskInput";
+import { taskAddDropped } from "../redux/features/todos/todosReducer";
+import { taskDropped } from "../redux/features/dragDrop/dragDropReducer";
 
 function TaskColumn(props) {
   const tasks = useSelector(state => state.todoList[props.columnName]);
 
+  const dragDropState = useSelector(state => state.dragDrop);
+
+  const { dragFrom, draggedTask } = dragDropState;
+
+  const dispatch = useDispatch();
+
   function allowDrop(ev) {
     ev.preventDefault();
   }
-  
+
+  function drop() {
+    const dropTo = props.columnName;
+    dispatch(taskAddDropped({ dragFrom, dropTo, draggedTask }));
+  }
 
   return (
     <div
     className="tasks-container"
-    // onDrop={() => props.drop(props.column)}
-    // onDragOver={allowDrop}
+    onDrop={drop}
+    onDragOver={allowDrop}
     >
       <div className="background"/>
       <ColumnHeader columnName={props.columnName} />
@@ -25,9 +37,9 @@ function TaskColumn(props) {
           <Task
             columnName={props.columnName}
             task={task}
-            drag={props.drag}
-            dragEnd={props.dragEnd}
-            dropToColumn={props.dropToColumn}
+            // drag={props.drag}
+            // dragEnd={props.dragEnd}
+            // dropToColumn={props.dropToColumn}
           />
           ))}
       </ul>

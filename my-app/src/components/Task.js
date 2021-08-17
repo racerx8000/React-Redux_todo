@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import ColorMenu from "./ColorMenu";
 import DropdownTrigger from "./DropdownTrigger";
-import { taskDeleted, taskEdited, taskToggled } from "../redux/features/todos/todosReducer";
+import {
+  taskDeleted,
+  taskEdited,
+  taskToggled
+  } from "../redux/features/todos/todosReducer";
+import { taskDragged, taskDropped } from "../redux/features/dragDrop/dragDropReducer";
 
 const completedStyle = {
   fontStyle: "italic",
@@ -17,6 +22,7 @@ function Task(props) {
   const  dispatch = useDispatch();
 
   const columnName = props.columnName;
+  const task = props.task;
   const { id, title, completed, color } = props.task;
 
   let normalMode = {};
@@ -45,13 +51,21 @@ function Task(props) {
     setEditedTitle(ev.target.value)
   } 
 
+  function drag() {
+    dispatch(taskDragged({ columnName, task }));
+  }
+
+  function dragEnd() {
+    dispatch(taskDropped());
+  }
+
   return(
     <li
       key={id}
       className="draggable-elem"
       draggable="true"
-      onDrag={() => props.drag(id, columnName)}
-      onDragEnd={() => props.dragEnd(id, columnName, props.dropToColumn)}
+      onDragStart={drag}
+      onDragEnd={dragEnd}
     >
       <div
         onDoubleClick={enterEditMode}

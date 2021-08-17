@@ -34,12 +34,12 @@ function ColumnContainer() {
   // }
 
   // function dragEnd(id, dragFrom, dropTo) {
-  //   const restOfTasks = state[dragFrom].filter(task => {
-  //     return task.id !== id;
-  //   });
-  //   if (dragFrom !== dropTo) {
-  //     setTodos({ ...state, [dragFrom]: restOfTasks });
-  //   }
+    // const restOfTasks = state[dragFrom].filter(task => {
+    //   return task.id !== id;
+    // });
+    // if (dragFrom !== dropTo) {
+    //   setTodos({ ...state, [dragFrom]: restOfTasks });
+    // }
   // }
 
   return(

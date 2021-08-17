@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  dragFrom: [],
-  dropTo: [],
+  dragFrom: "",
+  dropTo: "",
   draggedTask: {}
 };
 
@@ -11,13 +11,19 @@ const dragDropSlice = createSlice({
   initialState,
   reducers: {
     taskDragged(state, action) {
-
+      const { columnName, task } = action.payload;
+      return { 
+        ...state,
+        draggedTask: task,
+        dragFrom: columnName
+      }
     },
-    taskDropped(state, action) {
-
+    taskDropped(state) {
+      state.draggedTask = {};
     }
   }
 })
 
 export const { taskDragged, taskDropped } = dragDropSlice.actions;
+
 export default dragDropSlice.reducer;
