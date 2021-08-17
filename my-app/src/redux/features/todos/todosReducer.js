@@ -56,15 +56,26 @@ const todosSlice = createSlice({
         return task;
       })
       return { ...state, [columnName]: setColor };
+    },
+    taskAddDropped(state, action) {
+      const { dragFrom, dropTo, draggedTask } = action.payload;
+      const pushDragged = state[dropTo].concat(draggedTask);
+      const restOfTasks = state[dragFrom].filter(task => task.id !== draggedTask.id);
+  
+      if (dragFrom !== dropTo) {
+        return { ...state, [dropTo]: pushDragged, [dragFrom]: restOfTasks };
+      }
     }
   }
 })
 
-export const { taskAdded,
+export const {
+  taskAdded,
   taskDeleted, 
   taskEdited,
   taskToggled,
-  taskSetNewColor
+  taskSetNewColor,
+  taskAddDropped
 } = todosSlice.actions;
 
 export default todosSlice.reducer;
