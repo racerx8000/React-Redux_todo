@@ -1,0 +1,101 @@
+.task-column-wrapper {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-around;
+  margin-top: 10vh;
+}
+
+.background {
+  border: none;
+  border-radius: 100%;
+  background:cornflowerblue;
+  display: inline-block;
+  width: 125%;
+  height: 120%;
+  position: absolute;
+  opacity: 0.45;
+  z-index: -1;
+}
+
+.column-header {
+  margin-bottom: auto;
+}
+
+.tasks-container {
+  display: flex;
+  position: relative;
+  flex-flow: column wrap;
+  flex-basis: auto;
+  justify-content: center;
+  border: none;
+}
+
+
+.text-input {
+  border: 2px solid #c9c7c7;
+  border-radius: calc(0.5 * 100px);
+}
+
+.submit-button {
+  font-size: 13px;
+  background: #f1f3f4;
+  border: none;
+  cursor: pointer;
+  float: right;
+  outline: none;
+  border-radius: 100px;
+  height: 50px;
+  width: 50px;
+  margin: -10px 0 0 10px;
+
+}
+
+li {
+  list-style: none;
+  margin: auto;
+}
+
+.dropdown-trigger {
+  width: 14px;
+  height: 12px;
+  border: 1px solid rgb(71, 71, 71);
+  border-radius: 6px;
+  opacity: 0.95;
+}
+
+.dropdown {
+  display: inline-block;
+  position: relative;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: rgba(212, 209, 209, 0.589);
+  z-index: 1;
+}
+
+.dropdown-content p {
+  padding: 15px;
+  border-radius: 3px;
+  display: block;
+}
+
+.draggable-elem {
+  border-bottom: 1px solid #eaeaea;
+}
+
+.draggable-elem span {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 0 10px;
+}
+
+.draggable-elem button {
+  background: #f1f3f4;
+  border: none;
+  border-radius: 100px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.dropdown:hover .dropdown-content {display: block};
