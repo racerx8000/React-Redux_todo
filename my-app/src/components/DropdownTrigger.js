@@ -1,12 +1,13 @@
 import React from "react";
+import { Box } from "@material-ui/core";
 
 function DropdownTrigger(props) {
   return(
-    <div
-      className="dropdown-trigger"
+    <Box
+      // className="dropdown-trigger"
       style={{backgroundColor: props.color}}
     >
-    </div>
+    </Box>
   )
 }
 

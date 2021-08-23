@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { makeStyles } from "@material-ui/core";
+import { IconButton } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
 import ColorMenu from "./ColorMenu";
 import DropdownTrigger from "./DropdownTrigger";
 import {
   taskDeleted,
   taskEdited,
   taskToggled
-  } from "../redux/features/todos/todosReducer";
+} from "../redux/features/todos/todosReducer";
 import { taskDragged, taskDropped } from "../redux/features/dragDrop/dragDropReducer";
+import '@fontsource/roboto';
 
 const completedStyle = {
   fontStyle: "italic",
@@ -20,6 +24,11 @@ function Task(props) {
   const [editing, setEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const  dispatch = useDispatch();
+  // const useStyles = makeStyles({
+  //   root: {
+
+  //   }
+  // })
 
   const columnName = props.columnName;
   const task = props.task;
@@ -88,11 +97,16 @@ function Task(props) {
         <span style={completed ? completedStyle : null}>
           {title}
         </span>
-        <button onClick={() => {
-          dispatch(taskDeleted({id, columnName }))
-        }}>
-          x
-        </button>
+        <IconButton
+          // variant="contained"
+          color="secondary"
+          // size="small"
+          onClick={() => {
+            dispatch(taskDeleted({id, columnName }))
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       </div>
       <div style={editMode}>
           <input 

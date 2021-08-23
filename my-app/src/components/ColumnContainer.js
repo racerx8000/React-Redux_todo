@@ -1,49 +1,45 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from 'react-redux';
+// import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core";
+import Box from '@material-ui/core/Box';
 import TaskColumn from "./TaskColumn";
+
+
+// const useStyles = makeStyles({
+//   root: {
+//     display: flex,
+//     flexFlow: row,
+//     justifyContent: space-around
+  
+//   }
+// })
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing(1),
+    color: theme.palette.info
+  }
+}))
+
 
 function ColumnContainer() {
   const todoList = useSelector(state => state.todoList);
+  const classes = useStyles();
 
   useEffect(() => {
     const temp = JSON.stringify(todoList);
     localStorage.setItem("todoList", temp)
   }, [todoList])
-  // const [draggedTask, setDraggedTask] = useState({});
-  // const [dragFromColumn, setDragFromColumn] = useState([]);
-  // const [dropToColumn, setDropToColumn] = useState([]);
-  
-  // function drag(id, dragFrom) {
-  //   const draggedItem = state[dragFrom].find(task => {
-  //     return task.id === id;
-  //   })
-
-  //   setDraggedTask(draggedItem);
-  //   setDragFromColumn(dragFrom);
-  // }
-
-  // function drop(dropTo) {
-  //   const draggedItem = state[dropTo].concat(draggedTask);
-  //   if (dropTo !== dragFromColumn) {
-  //     setTodos({ ...state, [dropTo]: draggedItem });
-  //     setDragFromColumn([]);
-  //   }
-    
-  //   setDropToColumn(dropTo);
-  //   setDraggedTask({});
-  // }
-
-  // function dragEnd(id, dragFrom, dropTo) {
-    // const restOfTasks = state[dragFrom].filter(task => {
-    //   return task.id !== id;
-    // });
-    // if (dragFrom !== dropTo) {
-    //   setTodos({ ...state, [dragFrom]: restOfTasks });
-    // }
-  // }
 
   return(
-    <div className="task-column-wrapper">
+    <Box 
+      className={classes.root}
+      display="flex"
+      flexDirection="row"
+      justifyContent="center"
+      mt={10}
+    >
       {Object.keys(todoList).map(column => (
           <TaskColumn
             columnName={column}
@@ -53,8 +49,8 @@ function ColumnContainer() {
             // dragEnd={dragEnd}
           />
       ))}
-    </div>
-  );
+    </Box>
+);
 }
 
 export default ColumnContainer;

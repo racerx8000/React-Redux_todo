@@ -1,11 +1,21 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
 import { taskAdded } from "../redux/features/todos/todosReducer";
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: theme.spacing(1),
+  }
+}))
 
 function TaskInput(props) {
   const [textInput, setTextInput] = useState("");
   const dispatch = useDispatch();
   const columnName = props.columnName;
+  const classes = useStyles();
   
   function onChange(e) {
     setTextInput(e.target.value)
@@ -25,14 +35,22 @@ function TaskInput(props) {
   return(
     <div className="input-form">
       <form onSubmit={onSubmit}>
-        <input type="text"
-          className="text-input"
-          value={textInput}
+        <TextField
+          size="small"
+          type="string"
+          variant="outlined"
+          // className="text-input"
+          defaultValue={textInput}
           onChange={onChange}
         />
-        <button className="submit-button">
+        <Button
+          className={classes.root}
+          variant="contained"
+          color="primary"
+          size="small"
+        >
           Add task
-        </button>
+        </Button>
       </form>
     </div>
   )

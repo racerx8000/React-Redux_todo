@@ -1,10 +1,17 @@
 import React from "react";
+import '@fontsource/roboto';
+import Typography from "@material-ui/core/Typography";
+
 
 function ColumnHeader(props) {
   return (
-    <h1 className="column-header">
+    <Typography
+      variant="h2"
+
+      // className="column-header
+    >
       {props.columnName}
-    </h1>
+    </Typography>
   )
 }
 
