@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { makeStyles } from "@material-ui/core";
-import { IconButton } from "@material-ui/core";
+import { Button, IconButton } from "@material-ui/core";
+import Zoom from '@material-ui/core/Zoom/Zoom'
+import { List } from '@material-ui/core'
 import DeleteIcon from '@material-ui/icons/Delete';
 import ColorMenu from "./ColorMenu";
 import DropdownTrigger from "./DropdownTrigger";
@@ -20,15 +22,17 @@ const completedStyle = {
   textDecoration: "line-through"
 }
 
+const useStyles = makeStyles({
+  root: {
+    borderRadius: "50%",
+  }
+})
+
 function Task(props) {
   const [editing, setEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const  dispatch = useDispatch();
-  // const useStyles = makeStyles({
-  //   root: {
-
-  //   }
-  // })
+  const classes = useStyles();
 
   const columnName = props.columnName;
   const task = props.task;
@@ -69,7 +73,7 @@ function Task(props) {
   }
 
   return(
-    <li
+    <List
       key={id}
       className="draggable-elem"
       draggable="true"
@@ -79,16 +83,12 @@ function Task(props) {
       <div
         onDoubleClick={enterEditMode}
         style={normalMode}
-      >
-        <span className="dropdown">
-          <DropdownTrigger
-            color={color}
-          />
-          <ColorMenu
-            taskId={id}
-            columnName={columnName}
-          />
-        </span>
+        >
+        <DropdownTrigger
+          color={color}
+          id={id}
+          columnName={columnName}
+        />
         <input
           type="checkbox"
           onChange={() => dispatch(taskToggled({ id, columnName }))}
@@ -98,7 +98,6 @@ function Task(props) {
           {title}
         </span>
         <IconButton
-          // variant="contained"
           color="secondary"
           // size="small"
           onClick={() => {
@@ -115,9 +114,16 @@ function Task(props) {
             value={editedTitle}
             onKeyDown={quitEditMode}         
           />
-        <button className="edit-todo" onClick={quitEditMode}>Set</button>
+        <Button
+          className={classes.root}
+          color="primary"
+          variant="contained"
+          onClick={quitEditMode}
+        >
+          Set
+        </Button>
       </div>
-    </li>
+    </List>
   )
 }
 

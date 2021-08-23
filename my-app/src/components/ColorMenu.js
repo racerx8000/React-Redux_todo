@@ -18,10 +18,21 @@ function ColorMenu(props) {
   // const columnName = props.columnName;
 
   return (
-    <div className="dropdown-content">
+    <div style={{
+      position: "absolute",
+      backgroundColor: "#d4d1d1",
+    }}
+      // className="dropdown-content"
+    >
       {Object.values(colors).map(color => (
         <p 
-          style={{backgroundColor: color}}
+          style={{
+            backgroundColor: color,
+            padding: "15px",
+            borderRadius: "3px",
+            display: "block"
+          
+          }}
           onClick={() => dispatch(taskSetNewColor({ taskId, columnName, color }))}
         />
       ))}

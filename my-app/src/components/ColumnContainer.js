@@ -6,22 +6,15 @@ import Box from '@material-ui/core/Box';
 import TaskColumn from "./TaskColumn";
 
 
-// const useStyles = makeStyles({
-//   root: {
-//     display: flex,
-//     flexFlow: row,
-//     justifyContent: space-around
-  
-//   }
-// })
-
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   root: {
-    margin: theme.spacing(1),
-    color: theme.palette.info
+    display: "flex",
+    flexDirection: "row",
+    flexShrink: 1,
+    justifyContent: "center",
+    // mt: "10vh",
   }
-}))
-
+})
 
 function ColumnContainer() {
   const todoList = useSelector(state => state.todoList);
@@ -35,10 +28,6 @@ function ColumnContainer() {
   return(
     <Box 
       className={classes.root}
-      display="flex"
-      flexDirection="row"
-      justifyContent="center"
-      mt={10}
     >
       {Object.keys(todoList).map(column => (
           <TaskColumn

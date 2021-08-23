@@ -37,13 +37,12 @@ function TaskInput(props) {
       <form onSubmit={onSubmit}>
         <TextField
           size="small"
-          type="string"
           variant="outlined"
           // className="text-input"
-          defaultValue={textInput}
           onChange={onChange}
         />
         <Button
+          type="submit"
           className={classes.root}
           variant="contained"
           color="primary"
