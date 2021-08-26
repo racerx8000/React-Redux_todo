@@ -1,43 +1,71 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { taskSetNewColor } from "../redux/features/todos/todosReducer";
+import { ButtonGroup, Button, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  dropdown: {
+    backgroundColor: "rgba(176, 190, 197, 0.5)",
+    borderRadius: "calc(0.5 * 100px)",
+    position: "absolute",
+    zIndex: "1"
+  },
+  dropdownItem: {
+    padding: "15px",
+    margin: "12px",
+    borderRadius: "50%",
+    display: "block",
+    width: "22px",
+    minWidth: "10px",
+    maxWidth: "22px",
+    height: "22px",
+    background: props => props.color,
+    zIndex: "2"
+  }
+})
 
 const colors = {
-  red: '#f00e1a',
-  green: '#16f50f',
-  blue: '#0f41f5',
-  purple: '#9c57e6',
-  black: '#000000',
+  red: '#F93636',
+  green: '#5BEE33',
+  blue: '#1984F5',
+  purple: '#655DFF',
 };
 
-
-function ColorMenu(props) {
+function ColorButton(props) {
+  const classes = useStyles(props);
+  const { taskId, columnName, color } = props;
   const dispatch = useDispatch();
-  const { taskId, columnName } = props;
-  // const taskId = props.id;
-  // const columnName = props.columnName;
-
   return (
-    <div style={{
-      position: "absolute",
-      backgroundColor: "#d4d1d1",
-    }}
-      // className="dropdown-content"
-    >
-      {Object.values(colors).map(color => (
-        <p 
-          style={{
-            backgroundColor: color,
-            padding: "15px",
-            borderRadius: "3px",
-            display: "block"
-          
-          }}
-          onClick={() => dispatch(taskSetNewColor({ taskId, columnName, color }))}
-        />
-      ))}
-    </div>
+    <Button
+      variant="contained"
+      className={classes.dropdownItem}
+      onClick={() => dispatch(taskSetNewColor({ taskId, columnName, color }))}
+    />
   )
 }
 
+
+function ColorMenu(props) {
+  const { taskId, columnName } = props;
+  const classes = useStyles();
+
+  return (
+    <ButtonGroup
+      className={classes.dropdown}
+      orientation="vertical"
+      variant="contained"
+      // className="dropdown-content"
+    >
+      {Object.values(colors).map(color => (
+        <ColorButton
+          toggleMenu={props.toggleMenu}
+          taskId={taskId}
+          columnName={columnName}
+          color={color}
+        />
+      ))}
+    </ButtonGroup>
+  )
+}
+  
 export default ColorMenu;

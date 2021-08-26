@@ -24,7 +24,7 @@ const todosSlice = createSlice({
         id: uuidv4(),
         title: textInput,
         completed: false,
-        color: ""
+        color: "rgba(176, 190, 197, 0.5)"
       })
       return { ...state, [columnName]: newTodo };
     },

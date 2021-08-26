@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
 
 function TaskInput(props) {
   const [textInput, setTextInput] = useState("");
+  const [textInputErr, setTextInputErr] = useState(false)
   const dispatch = useDispatch();
   const columnName = props.columnName;
   const classes = useStyles();
@@ -27,8 +28,9 @@ function TaskInput(props) {
     if (textInput.trim()) {
       dispatch(taskAdded({textInput, columnName}))
       setTextInput("")
+      setTextInputErr(false)
     } else {
-      alert("Please write item");
+      setTextInputErr(true);
     }
   }
 
@@ -36,6 +38,8 @@ function TaskInput(props) {
     <div className="input-form">
       <form onSubmit={onSubmit}>
         <TextField
+          value={textInput}
+          type="text"
           size="small"
           variant="outlined"
           // className="text-input"

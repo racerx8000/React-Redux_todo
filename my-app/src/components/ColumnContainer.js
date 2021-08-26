@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector } from 'react-redux';
-// import { makeStyles } from '@material-ui/core/styles';
 import { makeStyles } from "@material-ui/core";
 import Box from '@material-ui/core/Box';
 import TaskColumn from "./TaskColumn";
@@ -10,9 +9,8 @@ const useStyles = makeStyles({
   root: {
     display: "flex",
     flexDirection: "row",
-    flexShrink: 1,
     justifyContent: "center",
-    // mt: "10vh",
+    height: "400px"
   }
 })
 
@@ -30,16 +28,12 @@ function ColumnContainer() {
       className={classes.root}
     >
       {Object.keys(todoList).map(column => (
-          <TaskColumn
-            columnName={column}
-            // drop={drop}
-            // dropToColumn={dropToColumn}
-            // drag={drag}
-            // dragEnd={dragEnd}
-          />
+        <TaskColumn
+          columnName={column}
+        />
       ))}
     </Box>
-);
+  );
 }
 
 export default ColumnContainer;
