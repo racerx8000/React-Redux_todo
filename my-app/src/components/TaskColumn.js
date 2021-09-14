@@ -4,7 +4,23 @@ import ColumnHeader from "./ColumnHeader";
 import Task from "./Task";
 import TaskInput from "./TaskInput";
 import { taskAddDropped } from "../redux/features/todos/todosReducer";
-import { taskDropped } from "../redux/features/dragDrop/dragDropReducer";
+import { Box, Paper, List, makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles({
+  root: {
+    display:"flex",
+    flexDirection:"column",
+    justifyContent:"center",
+    margin: "8px",
+    minHeight: "100%"
+  },
+  paper: {
+    height: "77%",
+    display: "flex",
+    flexDirection: "column",
+    overflowY: "auto"
+  },
+})
 
 function TaskColumn(props) {
   const tasks = useSelector(state => state.todoList[props.columnName]);
@@ -12,6 +28,8 @@ function TaskColumn(props) {
   const dragDropState = useSelector(state => state.dragDrop);
 
   const { dragFrom, draggedTask } = dragDropState;
+  
+  const classes = useStyles();
 
   const dispatch = useDispatch();
 
@@ -25,28 +43,31 @@ function TaskColumn(props) {
   }
 
   return (
-    <div
-    className="tasks-container"
+    <Box
+    className={classes.root}
     onDrop={drop}
     onDragOver={allowDrop}
     >
-      <div className="background"/>
-      <ColumnHeader columnName={props.columnName} />
-      <ul>
-        {tasks.map(task => (
-          <Task
-            columnName={props.columnName}
-            task={task}
-            // drag={props.drag}
-            // dragEnd={props.dragEnd}
-            // dropToColumn={props.dropToColumn}
-          />
+      <Paper
+        className={classes.paper}
+        elevation={3}
+      >
+        <ColumnHeader columnName={props.columnName} />
+        <List
+          className={classes.list}
+        >
+          {tasks.map(task => (
+            <Task
+              columnName={props.columnName}
+              task={task}
+            />
           ))}
-      </ul>
+        </List>
+      </Paper>
       <TaskInput
         columnName={props.columnName}
       />
-    </div>
+    </Box>
   )
 };
 

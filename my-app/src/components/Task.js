@@ -1,12 +1,15 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import ColorMenu from "./ColorMenu";
+import { Button, IconButton, Checkbox, ListItem, Input, makeStyles } from "@material-ui/core";
+import DeleteIcon from '@material-ui/icons/Delete';
+import Typography from "@material-ui/core/Typography";
+import '@fontsource/roboto';
 import DropdownTrigger from "./DropdownTrigger";
 import {
   taskDeleted,
   taskEdited,
   taskToggled
-  } from "../redux/features/todos/todosReducer";
+} from "../redux/features/todos/todosReducer";
 import { taskDragged, taskDropped } from "../redux/features/dragDrop/dragDropReducer";
 
 const completedStyle = {
@@ -16,16 +19,26 @@ const completedStyle = {
   textDecoration: "line-through"
 }
 
+const useStyles = makeStyles({
+  setBtn: {
+    borderRadius: "50%",
+  },
+  typography: {
+    marginTop: "8.7%"
+  }
+})
+
 function Task(props) {
   const [editing, setEditing] = useState(false);
   const [editedTitle, setEditedTitle] = useState("");
   const  dispatch = useDispatch();
+  const classes = useStyles();
 
   const columnName = props.columnName;
   const task = props.task;
   const { id, title, completed, color } = props.task;
 
-  let normalMode = {};
+  let normalMode = {display: "flex"};
   let editMode = {};
 
   if (editing) {
@@ -60,9 +73,8 @@ function Task(props) {
   }
 
   return(
-    <li
+    <ListItem
       key={id}
-      className="draggable-elem"
       draggable="true"
       onDragStart={drag}
       onDragEnd={dragEnd}
@@ -71,39 +83,49 @@ function Task(props) {
         onDoubleClick={enterEditMode}
         style={normalMode}
       >
-        <span className="dropdown">
+        <span>
           <DropdownTrigger
             color={color}
-          />
-          <ColorMenu
-            taskId={id}
+            id={id}
             columnName={columnName}
           />
         </span>
-        <input
-          type="checkbox"
+        <Checkbox
           onChange={() => dispatch(taskToggled({ id, columnName }))}
-          defaultChecked={completed ? "checked" : ""}
+          checked={completed}
         />
-        <span style={completed ? completedStyle : null}>
+        <Typography
+          className={classes.typography}
+          style={completed ? completedStyle: null}
+        >
           {title}
-        </span>
-        <button onClick={() => {
-          dispatch(taskDeleted({id, columnName }))
-        }}>
-          x
-        </button>
+        </Typography>
+        <IconButton
+          color="secondary"
+          onClick={() => {
+            dispatch(taskDeleted({id, columnName }))
+          }}
+        >
+          <DeleteIcon />
+        </IconButton>
       </div>
       <div style={editMode}>
-          <input 
-            onChange={onChange}
-            type="text"
-            value={editedTitle}
-            onKeyDown={quitEditMode}         
-          />
-        <button className="edit-todo" onClick={quitEditMode}>Set</button>
+        <Input
+          onChange={onChange}
+          type="text"
+          value={editedTitle}
+          onKeyDown={quitEditMode}         
+        />
+        <Button
+          className={classes.setBtn}
+          color="primary"
+          variant="contained"
+          onClick={quitEditMode}
+        >
+          Set
+        </Button>
       </div>
-    </li>
+    </ListItem >
   )
 }
 
