@@ -75,7 +75,6 @@ function Task(props) {
   return(
     <ListItem
       key={id}
-      // className="draggable-elem"
       draggable="true"
       onDragStart={drag}
       onDragEnd={dragEnd}

@@ -34,12 +34,11 @@ const colors = {
 function ColorButton(props) {
   const classes = useStyles(props);
   const { taskId, columnName, color } = props;
-  const dispatch = useDispatch();
   return (
     <Button
       variant="contained"
       className={classes.dropdownItem}
-      onClick={() => dispatch(taskSetNewColor({ taskId, columnName, color }))}
+      onClick={() => props.applyColor(taskId, columnName, color)}
     />
   )
 }
@@ -48,13 +47,18 @@ function ColorButton(props) {
 function ColorMenu(props) {
   const { taskId, columnName } = props;
   const classes = useStyles();
+  const dispatch = useDispatch();
+
+
+  function applyColor(taskId, columnName, color) {
+    dispatch(taskSetNewColor({ taskId, columnName, color }))
+  }
 
   return (
     <ButtonGroup
       className={classes.dropdown}
       orientation="vertical"
       variant="contained"
-      // className="dropdown-content"
     >
       {Object.values(colors).map(color => (
         <ColorButton
@@ -62,6 +66,7 @@ function ColorMenu(props) {
           taskId={taskId}
           columnName={columnName}
           color={color}
+          applyColor={applyColor}
         />
       ))}
     </ButtonGroup>

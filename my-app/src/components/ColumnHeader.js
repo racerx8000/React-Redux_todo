@@ -16,7 +16,6 @@ function ColumnHeader(props) {
     <Typography
       className={classes.root}
       variant="h2"
-      // className="column-header
     >
       {props.columnName}
     </Typography>

@@ -26,7 +26,6 @@ function DropdownTrigger(props) {
       variant="contained"
       onClick={() => setShowColorMenu(prev => !prev)}
       className={classes.root}
-      // className="dropdown-trigger"
       style={{backgroundColor: color}}
       >
       <Zoom in={showColorMenu}>

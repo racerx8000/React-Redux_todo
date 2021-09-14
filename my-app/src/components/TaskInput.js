@@ -42,7 +42,6 @@ function TaskInput(props) {
           type="text"
           size="small"
           variant="outlined"
-          // className="text-input"
           onChange={onChange}
         />
         <Button

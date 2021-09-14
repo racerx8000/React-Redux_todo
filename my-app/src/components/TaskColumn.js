@@ -45,7 +45,6 @@ function TaskColumn(props) {
   return (
     <Box
     className={classes.root}
-    // className="tasks-container"
     onDrop={drop}
     onDragOver={allowDrop}
     >
